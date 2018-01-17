@@ -1,0 +1,7 @@
+{% block content %}
+    <div class = "images">
+        {% for image in images %}
+        <img src = {{ image.imageLocation }} height = "100px"/>
+        {% endfor %}
+    </div>
+{% endblock %}

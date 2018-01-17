@@ -1,0 +1,55 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title>
+            Download Image
+        </title>
+    </head>
+    <body>
+            <script src = {% static 'js/jquery-3.2.1.min.js' %}></script>
+    <script>
+        imageCount = 0
+        counter = 0
+
+        function download(){
+            $.ajax({
+                type: "GET",
+                url: "/downloadingImage/",
+                success: function(response){
+                    if(response["download"] == "success"){
+                        document.getElementById("imageProgress").innerHTML = "Images downloaded" + ++counter + "/" + imageCount;  
+                        download();
+                    }       
+                }
+            });
+        }
+        $(document).on('click', '#search', function(e){
+            $.ajax({
+                    type: "POST",
+                    url: "/download/",
+                    data: {
+                    pk : document.getElementById('searchField').value
+                    },
+                    success: function(response){
+                        imageCount = response["imageCount"]
+                        document.getElementById("imageCount").innerHTML = " Found " + response["imageCount"] + "images <Button id = 'imageDownload'>Download</Button>"
+                    },
+                }); 
+            });
+
+        $(document).on('click', '#imageDownload', function(e){
+            download();
+        });
+    </script>
+        <form>
+            <lable>Enter a zerochan link</lable>
+            <input id = "searchField" type = "text" name = "search"/>
+            <button id = "search" name = "search" type = "button">Search</button>
+        </form>
+        <div id = "imageCount">
+        </div>
+        <div id = "imageProgress">
+
+        </div>
+    </body>
+</html>
