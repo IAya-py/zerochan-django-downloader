@@ -4,9 +4,10 @@
         <title>
             Download Image
         </title>
+        <link rel = "stylesheet" href = {% static 'css/bootstrap.min.css' %} />
     </head>
     <body>
-            <script src = {% static 'js/jquery-3.2.1.min.js' %}></script>
+    <script src = {% static 'js/jquery-3.2.1.min.js' %}></script>
     <script>
         imageCount = 0
         counter = 0
@@ -32,7 +33,7 @@
                     },
                     success: function(response){
                         imageCount = response["imageCount"]
-                        document.getElementById("imageCount").innerHTML = " Found " + response["imageCount"] + "images <Button id = 'imageDownload'>Download</Button>"
+                        document.getElementById("imageCount").innerHTML = " Found " + response["imageCount"] + "images <Button class = 'btn btn-primary' id = 'imageDownload'>Download</Button>"
                     },
                 }); 
             });
@@ -41,15 +42,19 @@
             download();
         });
     </script>
+    <div class = "container">
         <form>
+            <div class = "form-group">
             <lable>Enter a zerochan link</lable>
-            <input id = "searchField" type = "text" name = "search"/>
-            <button id = "search" name = "search" type = "button">Search</button>
+            <input id = "searchField" class = "form-control" type = "text" name = "search"/>
+            </div>
+
+            <button id = "search" class = "btn btn-primary" name = "search" type = "button">Search</button>
         </form>
         <div id = "imageCount">
         </div>
         <div id = "imageProgress">
-
         </div>
+    </div>
     </body>
 </html>
